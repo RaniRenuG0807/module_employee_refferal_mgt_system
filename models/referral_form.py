@@ -13,7 +13,7 @@ class EmployeeReferral(models.Model):
     position = fields.Char(string="Job Position",required=True)
     notes = fields.Text(string="Add Notes")
     resume = fields.Binary(string="Upload Resume")
-    status = fields.Selection([('submitted','Submitted'),('in_review','In review'),('hired','Hired'),('rejected','Rejected')],string="Status")
+    status = fields.Selection([('submitted','Submitted'),('under_review','Under Review'),('rejected','Rejected'),('hired','Hired')],string="Status",default="submitted")
 
     @api.constrains('name')
     def _check_name(self):
@@ -28,4 +28,12 @@ class EmployeeReferral(models.Model):
                 raise ValidationError("Contact Number Should be Digit")
             elif len(rec.contact)<10 or len(rec.contact)>10:
                 raise ValidationError("Contact Number Must have 10 Digits")
-            
+
+    def action_under_review(self):
+        self.status = 'under_review' 
+
+    def action_hire(self):
+        self.status = 'hired'  
+
+    def action_reject(self):
+        self.status = 'rejected'

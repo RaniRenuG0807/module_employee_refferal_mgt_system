@@ -11,8 +11,9 @@
                     <field name="contact"/>
                     <field name="position"/>
                     <field name="status" widget="badge" decoration-warning="status == 'submitted'" 
-                    decoration-info="status == 'in_review'" decoration-success="status == 'hired'" 
-                    decoration-danger="status == 'rejected'"/>
+                    decoration-info="status == 'under_review'" decoration-danger="status == 'rejected'" 
+                    decoration-success="status == 'hired'" 
+                    />
                 </tree>
             </field>
         </record>
@@ -24,8 +25,9 @@
             <field name="arch" type="xml">
                 <form string="Employee Referral Form">
                     <header>
-                        <!-- <button name="action_submit" type="object" string="Submit" class="oe_highlight" />
-                        <button name="action_submit" type="object" string="Retry" class="oe_highlight"/> -->
+                        <button name="action_under_review" type="object" string="Under Review" class="oe_highlight" invisible="status!='submitted'"/>
+                        <button name="action_hire" type="object" string="Hire" class="oe_highlight" invisible="status!='under_review'"/>
+                        <button name="action_reject" type="object" string="Reject" class="oe_highlight" invisible="status!='under_review'"/>
                         <field name="status" widget="statusbar" />
                     </header>
 
