@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- List View of Employee Referral -->
+        <record id="view_hr_employee_referral_list_view" model="ir.ui.view">
+            <field name="name">hr_employee_referral_tree</field>
+            <field name="model">employee.referral</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Referral">
+                    <field name="name"/>
+                    <field name="contact"/>
+                    <field name="position"/>
+                    <field name="status" widget="badge" decoration-warning="status == 'submitted'" 
+                    decoration-info="status == 'in_review'" decoration-success="status == 'hired'" 
+                    decoration-danger="status == 'rejected'"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View of Employee Referral Form-->
+        <record id="view_hr_employee_referral_form_view" model="ir.ui.view">
+            <field name="name">hr_employee_referral_form</field>
+            <field name="model">employee.referral</field>
+            <field name="arch" type="xml">
+                <form string="Employee Referral Form">
+                    <header>
+                        <!-- <button name="action_submit" type="object" string="Submit" class="oe_highlight" />
+                        <button name="action_submit" type="object" string="Retry" class="oe_highlight"/> -->
+                        <field name="status" widget="statusbar" />
+                    </header>
+
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="contact"/>
+                            <field name="position"/>
+                            <field name="notes"/>
+                            <field name="resume" widget="pdf_viewer"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- Action to Open the Employee Referral Model -->
+        <record id="action_view_hr_employee_referral_form" model="ir.actions.act_window">
+            <field name="name">Employee Referral</field>
+            <field name="res_model">employee.referral</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Root Menuitem -->
+        <menuitem id="menu_hr_employee_referral_root" 
+            action="action_view_hr_employee_referral_form" name="Referral"/>
+
+        <!-- Menuitem-1 Employee referral -->
+        <menuitem id="menu_hr_employee_referral_form" 
+            action="action_view_hr_employee_referral_form" name="Employee Referral" parent="menu_hr_employee_referral_root"
+            sequence="1"/>
+    </data>
+</odoo>

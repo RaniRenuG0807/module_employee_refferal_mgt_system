@@ -1,0 +1,17 @@
+def fetch_datatime_by_active_tz(self, dateTime_strptime=False, wk_timezone=None):
+
+        cookie_data = request.httprequest.cookies
+
+        public_usertz = cookie_data.get('tz')
+
+        result = False
+
+        if dateTime_strptime:
+
+            now_pacific = dateTime_strptime.replace(tzinfo=timezone('UTC')).astimezone(
+
+                timezone(self._context.get('tz') or public_usertz))
+
+            result = now_pacific.strftime(StartEndForamt)
+
+        return result
